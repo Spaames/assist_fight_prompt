@@ -1,27 +1,28 @@
 from Character import Character  # Importer le module sous le nom character
 import os
+from Console import Console
 
 class Main:
   def __init__(self):
     os.system('clear')
 
-    print("Préparation du combat...\n")
+    Console.sayPreparation()
     ## création de la liste
     characters = []
     listing = True
     order = 1
     friendly = True
     while listing:
-      name = input("\nEntrez le nom du personnage : \n")
+      name = Console.askName()
       if name == '':
         listing = False
         break
-      friendly_input = input("\n[1] Allié \n[2] Ennemi\n") ##changer plus tard avec keyboard pour détecter les touches et ne plus avoir à valider
+      friendly_input = Console.askFriendly()
       if friendly_input == "1":
         friendly = True
       else:
         friendly = False
-      hp = int(input(f"\nEntrez les points de vie de {name}: \n"))  # Convertir l'entrée en un entier
+      hp = Console.askHP(name)
       characters.append(Character(name, hp, order, friendly))  # Utilisation de character.Character
       order += 1
       os.system('clear')
