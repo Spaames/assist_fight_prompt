@@ -1,12 +1,12 @@
+from Console import Console
+
+
 class Character :
   def __init__(self, name, hp, order, friendly):
     self.name = name
     self.hp = hp
     self.order = order
-    if friendly == "1":
-      self.friendly = True
-    else:
-      self.friendly = False
+    self.friendly = friendly
 
   def getName(self):
     return self.name
