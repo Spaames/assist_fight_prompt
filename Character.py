@@ -1,6 +1,3 @@
-from Console import Console
-
-
 class Character :
   def __init__(self, name, hp, order, friendly):
     self.name = name
