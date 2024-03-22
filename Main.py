@@ -54,7 +54,8 @@ class Main:
 
     while endOfFight(characters) is False:
       for character in characters:
-          Console.sayRound(character.name)
+          Console.clearConsole()
+          Console.sayRound(character.name, character.friendly)
           choixAttaque = Console.askAction()
           endOfTour = False
           if choixAttaque == 1:

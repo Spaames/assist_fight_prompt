@@ -26,8 +26,11 @@ class Console:
     def sayFightStarting():
         print('''ĐɆ฿Ʉ₮ ĐɄ ₵Ø₥฿₳₮...''')
 
-    def sayRound(name):
-        print(f"C'est au tour de {name} de jouer, que fait-il ?\n")
+    def sayRound(name, friendly):
+        if friendly == True:
+            print(f"C'est au tour de " + Color.GREEN + name + Color.RESET + " de jouer, que fait-il ?\n")
+        else:
+            print(f"C'est au tour de " + Color.RED + name + Color.RESET + " de jouer, que fait-il ?\n")
 
     def askAction():
         print("-1- Attaque\n-2- Autre chose\n")
