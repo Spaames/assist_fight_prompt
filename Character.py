@@ -5,20 +5,20 @@ class Character :
     self.order = order
     self.friendly = friendly
 
-  def getName(self):
+  def get_name(self):
     return self.name
 
-  def getHP(self):
+  def get_hp(self):
     return self.hp
 
-  def getOrder(self):
+  def get_order(self):
     return self.order
 
-  def isFriendly(self):
+  def is_friendly(self):
     return self.friendly
   
-  def lowerHealth(self, degat):
+  def lower_health(self, degat):
     self.hp -= degat
 
-  def isDead(self):
+  def is_dead(self):
     return self.hp <= 0
