@@ -29,6 +29,7 @@ class Main:
       Console.clearConsole()
 
     characters = sorted(characters, key=lambda x: x.getOrder())
+    characters2 = sorted(characters, key=lambda x: x.getOrder())
 
     ##Maintenant, le combat commence :
 
@@ -41,10 +42,10 @@ class Main:
     ##fonction pour determiner la fin du combat, à appeler à chaque fois
 
 
-    def endOfFight(characters):
+    def endOfFight(liste):
       ennemi = 0
-      for character in characters:
-        if character.friendly == False:
+      for perso in liste:
+        if perso.friendly == False:
           ennemi +=1
       if ennemi > 0:
         return False
@@ -53,29 +54,34 @@ class Main:
     
 
     while endOfFight(characters) is False:
-      for character in characters:
+      for character2 in characters2:
           Console.clearConsole()
-          Console.sayRound(character.name, character.friendly)
-          choixAttaque = Console.askAction()
-          endOfTour = False
-          if choixAttaque == 1:
-            while endOfTour == False:
-              Console.sayTarget()
-              for character in characters:
-                Console.sayCharacter(character.order, character.name, character.hp, character.friendly)
-              choixEnnemi = Console.askTarget()
-              if choixEnnemi == 0:
-                endOfTour = True
-                break
-              else:
-                for i in range(len(characters)):
-                  if characters[i].order == choixEnnemi:
-                    degats = Console.askDegats()
-                    characters[i].lowerHealth(degats)
-                    if characters[i].isDead():
-                      Console.sayIsDead(characters[i].name)
-                      characters.remove(characters[i])
-                    break
+          if character2.isDead():
+            break
+          else:
+            Console.sayRound(character2.name, character2.friendly)
+            choixAttaque = Console.askAction()
+            endOfTour = False
+            if choixAttaque == 1:
+              while endOfTour == False:
+                Console.sayTarget()
+                for character2 in characters2:
+                  if not character2.isDead():
+                    Console.sayCharacter(character2.order, character2.name, character2.hp, character2.friendly)
+                choixEnnemi = Console.askTarget()
+                if choixEnnemi == 0:
+                  endOfTour = True
+                  break
+                else:
+                  for character in characters:
+                    if character.order == choixEnnemi:
+                      degats = Console.askDegats()
+                      character.lowerHealth(degats)
+                      characters2[choixEnnemi-1].lowerHealth(degats)
+                      if character.isDead():
+                        Console.sayIsDead(character.name)
+                        characters.remove(character)
+                      
     
     Console.clearConsole()
     Console.sayFightOver()
