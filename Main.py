@@ -1,12 +1,13 @@
 from Character import Character  # Importer le module sous le nom character
-import os
 from Console import Console
 
 class Main:
   def __init__(self):
-    os.system('clear')
+    Console.clearConsole()
 
     Console.sayPreparation()
+    Console.waitingScreen(3)
+    Console.clearConsole()
     ## création de la liste
     characters = []
     listing = True
@@ -25,15 +26,17 @@ class Main:
       hp = Console.askHP(name)
       characters.append(Character(name, hp, order, friendly))  # Utilisation de character.Character
       order += 1
-      os.system('clear')
+      Console.clearConsole()
 
     characters = sorted(characters, key=lambda x: x.getOrder())
 
     ##Maintenant, le combat commence :
 
-    os.system('clear')
+    Console.clearConsole()
 
-    print("Début du combat...\n\n")
+    Console.sayFightStarting()
+    Console.waitingScreen(3)
+    Console.clearConsole()
 
     ##fonction pour determiner la fin du combat, à appeler à chaque fois
 
@@ -51,30 +54,31 @@ class Main:
 
     while endOfFight(characters) is False:
       for character in characters:
-          print(f"C'est au tour de {character.name} de jouer, que fait-il ?\n")
-          choixAttaque = input("[1] Attaque\n[2] Autre chose\n")
+          Console.sayRound(character.name)
+          choixAttaque = Console.askAction()
           endOfTour = False
-          if choixAttaque == "1":
+          if choixAttaque == 1:
             while endOfTour == False:
-              print("\n Qui reçoit des dégats ?\n")
+              Console.sayTarget()
               for character in characters:
-                print(f"[{character.order}] - {character.name}\n")
-              choixEnnemi = int(input("Choissisez un nombre ci-dessus : "))
+                Console.sayCharacter(character.order, character.name, character.hp, character.friendly)
+              choixEnnemi = Console.askTarget()
               if choixEnnemi == 0:
                 endOfTour = True
                 break
               else:
                 for i in range(len(characters)):
-                  print(f"character.order = {character.order} / choixEnnemi = {choixEnnemi}")
-                  if character.order == choixEnnemi:
-                    degats = int(input("\nCombien de dégats a t-il reçu ? : "))
-                    character.lowerHealth(degats)
-                    if character.isDead():
-                      characters.remove(character)
+                  if characters[i].order == choixEnnemi:
+                    degats = Console.askDegats()
+                    characters[i].lowerHealth(degats)
+                    if characters[i].isDead():
+                      Console.sayIsDead(characters[i].name)
+                      characters.remove(characters[i])
                     break
     
-    print("le combat est terminé")
-
+    Console.clearConsole()
+    Console.sayFightOver()
+    Console.waitingScreen(3)
 
               
              
