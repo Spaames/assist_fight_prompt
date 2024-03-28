@@ -28,8 +28,8 @@ class Main:
       order += 1
       Console.clear_console()
 
-    characters = sorted(characters, key=lambda x: x.getOrder())
-    characters2 = sorted(characters, key=lambda x: x.getOrder())
+    characters = sorted(characters, key=lambda x: x.get_order())
+    characters2 = sorted(characters, key=lambda x: x.get_order())
 
     ##Maintenant, le combat commence :
 
