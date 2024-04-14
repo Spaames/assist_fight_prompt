@@ -18,7 +18,7 @@ class Character :
     return self.friendly
   
   def lower_health(self, degat):
-    self.hp -= degat
+    self.hp -= degat/2
 
   def is_dead(self):
     return self.hp <= 0
